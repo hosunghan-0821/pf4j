@@ -52,13 +52,8 @@ public class Boot {
           }
         };
 
-        // load the plugins
         pluginManager.loadPlugins();
 
-        // enable a disabled plugin
-//        pluginManager.enablePlugin("welcome-plugin");
-
-        // start (active/resolved) the plugins
         pluginManager.startPlugins();
 
         logger.info("Plugindirectory: ");
@@ -71,36 +66,15 @@ public class Boot {
             logger.info(">>> " + greeting.getGreeting());
         }
 
-        // // print extensions from classpath (non plugin)
-        // logger.info(String.format("Extensions added by classpath:"));
-        // Set<String> extensionClassNames = pluginManager.getExtensionClassNames(null);
-        // for (String extension : extensionClassNames) {
-        //     logger.info("   " + extension);
-        // }
 
-        // print extensions for each started plugin
         List<PluginWrapper> startedPlugins = pluginManager.getStartedPlugins();
         for (PluginWrapper plugin : startedPlugins) {
             String pluginId = plugin.getDescriptor().getPluginId();
             logger.info(String.format("Extensions added by plugin '%s':", pluginId));
-            // extensionClassNames = pluginManager.getExtensionClassNames(pluginId);
-            // for (String extension : extensionClassNames) {
-            //     logger.info("   " + extension);
-            // }
         }
 
         // stop the plugins
         pluginManager.stopPlugins();
-        /*
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-
-            @Override
-            public void run() {
-                pluginManager.stopPlugins();
-            }
-
-        });
-        */
     }
 
     private static void printLogo() {
